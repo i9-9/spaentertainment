@@ -7,46 +7,67 @@ import { useState, useEffect } from "react";
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
-    if (isMenuOpen) {
+    if (isMenuOpen && !isClosing) {
       // Pequeño delay para activar las animaciones después del montaje
       const timer = setTimeout(() => {
         setIsAnimating(true);
       }, 10);
       return () => clearTimeout(timer);
-    } else {
-      setIsAnimating(false);
     }
-  }, [isMenuOpen]);
+    return () => {}; // Siempre retornar una función de cleanup
+  }, [isMenuOpen, isClosing]);
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    if (isMenuOpen) {
+      // Iniciar animación de cierre
+      setIsAnimating(false);
+      setIsClosing(true);
+      // Esperar a que termine la animación antes de cerrar
+      setTimeout(() => {
+        setIsMenuOpen(false);
+        setIsClosing(false);
+      }, 800); // Duración suficiente para que termine la animación de los items
+    } else {
+      setIsMenuOpen(true);
+      setIsClosing(false);
+    }
   };
 
   const closeMenu = () => {
-    setIsMenuOpen(false);
+    if (isMenuOpen && !isClosing) {
+      // Iniciar animación de cierre
+      setIsAnimating(false);
+      setIsClosing(true);
+      // Esperar a que termine la animación antes de cerrar
+      setTimeout(() => {
+        setIsMenuOpen(false);
+        setIsClosing(false);
+      }, 800); // Duración suficiente para que termine la animación de los items
+    }
   };
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white flex items-center justify-between px-4 md:px-[80px] py-4">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white flex items-center justify-between px-4 lg:px-[80px] py-4">
         <Link href="/" className="flex items-center gap-6" onClick={closeMenu}>
           <Image
             src="/images/logo/2x/Asset 6@2x.png"
             alt="Logo"
             width={120}
             height={40}
-            className="h-auto w-20 md:w-[120px]"
+            className="h-auto w-20 lg:w-[120px]"
           />
-          <div className="hidden md:flex flex-col ml-2 leading-tight" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700 }}>
+          <div className="flex flex-col ml-2 leading-tight" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700 }}>
             <span>Servicios de</span>
-            <span>Producciones Artísticas.</span>
+            <span>Producciones Artísticas</span>
           </div>
         </Link>
         
-        {/* Menú desktop - oculto en mobile */}
-        <ul className="hidden md:flex items-center gap-6 text-sm" style={{ fontFamily: 'gotham, sans-serif', fontWeight: 500 }}>
+        {/* Menú desktop - oculto en mobile y tablet */}
+        <ul className="hidden lg:flex items-center gap-6 text-sm" style={{ fontFamily: 'gotham, sans-serif', fontWeight: 500 }}>
           <li>
             <Link href="#" className="hover:text-gray-600 transition-colors uppercase">
               INTRO
@@ -79,10 +100,10 @@ export default function Navbar() {
           </li>
         </ul>
 
-        {/* Botón mobile - solo visible en mobile */}
+        {/* Botón mobile - visible en mobile y tablet */}
         <button
           onClick={toggleMenu}
-          className="md:hidden w-12 h-12 flex items-center justify-center text-4xl font-bold transition-transform duration-300"
+          className="lg:hidden w-12 h-12 flex items-center justify-center text-4xl font-bold transition-transform duration-300"
           style={{ transform: isMenuOpen ? 'rotate(45deg)' : 'rotate(0deg)' }}
           aria-label="Toggle menu"
         >
@@ -91,9 +112,9 @@ export default function Navbar() {
       </nav>
 
       {/* Overlay del menú mobile */}
-      {isMenuOpen && (
+      {(isMenuOpen || isClosing) && (
         <div
-          className={`fixed inset-0 z-40 bg-white md:hidden transition-all duration-500 ease-out ${
+          className={`fixed inset-0 z-40 bg-white lg:hidden transition-all duration-500 ease-out ${
             isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full'
           }`}
           onClick={closeMenu}
@@ -107,7 +128,7 @@ export default function Navbar() {
               className={`transition-all duration-700 ease-out ${
                 isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
               }`}
-              style={{ transitionDelay: isAnimating ? '200ms' : '0ms' }}
+              style={{ transitionDelay: isAnimating ? '200ms' : (isClosing ? '750ms' : '0ms') }}
             >
               <Link
                 href="#"
@@ -121,7 +142,7 @@ export default function Navbar() {
               className={`transition-all duration-700 ease-out ${
                 isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
               }`}
-              style={{ transitionDelay: isAnimating ? '350ms' : '0ms' }}
+              style={{ transitionDelay: isAnimating ? '350ms' : (isClosing ? '600ms' : '0ms') }}
             >
               <Link
                 href="#"
@@ -135,7 +156,7 @@ export default function Navbar() {
               className={`transition-all duration-700 ease-out ${
                 isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
               }`}
-              style={{ transitionDelay: isAnimating ? '500ms' : '0ms' }}
+              style={{ transitionDelay: isAnimating ? '500ms' : (isClosing ? '450ms' : '0ms') }}
             >
               <Link
                 href="#"
@@ -149,7 +170,7 @@ export default function Navbar() {
               className={`transition-all duration-700 ease-out ${
                 isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
               }`}
-              style={{ transitionDelay: isAnimating ? '650ms' : '0ms' }}
+              style={{ transitionDelay: isAnimating ? '650ms' : (isClosing ? '300ms' : '0ms') }}
             >
               <Link
                 href="#"
@@ -163,7 +184,7 @@ export default function Navbar() {
               className={`transition-all duration-700 ease-out ${
                 isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
               }`}
-              style={{ transitionDelay: isAnimating ? '800ms' : '0ms' }}
+              style={{ transitionDelay: isAnimating ? '800ms' : (isClosing ? '150ms' : '0ms') }}
             >
               <Link
                 href="#"
@@ -177,7 +198,7 @@ export default function Navbar() {
               className={`transition-all duration-700 ease-out ${
                 isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
               }`}
-              style={{ transitionDelay: isAnimating ? '950ms' : '0ms' }}
+              style={{ transitionDelay: isAnimating ? '950ms' : (isClosing ? '0ms' : '0ms') }}
             >
               <Link
                 href="#"
