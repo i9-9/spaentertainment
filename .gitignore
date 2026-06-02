@@ -24,6 +24,9 @@
 .DS_Store
 *.pem
 
+# GLB exports too large for GitHub (>100MB)
+public/Escenario_SPA_WEB.glb
+
 # debug
 npm-debug.log*
 yarn-debug.log*

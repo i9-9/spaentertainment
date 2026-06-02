@@ -1,0 +1,32 @@
+{
+  "defaultRole": "structure",
+  "materials": {
+    "Circles": "screen",
+    "Circles1": "screen",
+    "Circles3": "screen",
+    "[Tile_Navy]": "screen",
+    "Metal_Rough": "structure",
+    "Metal_Aluminum_Anodized": "structure",
+    "[Metal_Rough]1": "structure",
+    "[Metal_Aluminum_Anodized]5": "structure",
+    "[Metal_Seamed]": "structure",
+    "Metal_Corrogated_Shiny": "structure",
+    "ModTruss_0130_Zinc_Clear": "structure",
+    "<Black>4": "structure",
+    "Concrete Masonry Unit": "structure",
+    "Concrete Masonry Unit1": "structure",
+    "[Fencing_Diamond_Mesh]2": "barrier",
+    "[Fencing_Chain_Link]1": "barrier",
+    "[Fencing_Mesh_Blue]1": "barrier",
+    "[Blinds_Wood_White]1": "structure",
+    "[Wood_Board_Cork]1": "structure",
+    "[Carpet_Plush_Forest]": "floor",
+    "[Water_Pool_Light]": "structure",
+    "mackie 1642 vlz pro": "audio",
+    "Rack - Top": "audio",
+    "Rack - Side": "audio",
+    "Rack - Front": "audio"
+  },
+  "logoMaterials": [],
+  "_comment": "Para marcar el logo: abrí /?inspect=stage, click en el logo, botón «Logo: todo el material». Copiá el material a logoMaterials."
+}

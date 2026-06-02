@@ -2,9 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
@@ -51,7 +54,11 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white flex items-center justify-between px-4 lg:px-[80px] py-4">
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 lg:px-[80px] py-4 ${
+          isHome ? "bg-transparent text-black" : "bg-white text-black"
+        }`}
+      >
         <Link href="/" className="flex items-center gap-6" onClick={closeMenu}>
           <Image
             src="/images/logo/2x/Asset 6@2x.png"
@@ -59,37 +66,38 @@ export default function Navbar() {
             width={120}
             height={40}
             className="h-auto w-20 lg:w-[120px]"
+            priority
           />
-          <div className="flex flex-col ml-2 leading-tight" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700 }}>
+          <div className="flex flex-col ml-2 leading-tight" style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 700 }}>
             <span>Servicios de</span>
             <span>Producciones Artísticas</span>
           </div>
         </Link>
         
         {/* Menú desktop - oculto en mobile y tablet */}
-        <ul className="hidden lg:flex items-center gap-6 text-sm" style={{ fontFamily: 'gotham, sans-serif', fontWeight: 500 }}>
+        <ul className="hidden lg:flex items-center gap-6 text-sm" style={{ fontFamily: "gotham, sans-serif", fontWeight: 500 }}>
           <li>
-            <Link href="#" className="hover:text-gray-600 transition-colors uppercase">
+            <Link href="#" className="transition-colors uppercase hover:text-gray-600">
               INTRO
             </Link>
           </li>
           <li>
-            <Link href="#" className="hover:text-gray-600 transition-colors uppercase">
+            <Link href="#" className="transition-colors uppercase hover:text-gray-600">
               QUE HACEMOS
             </Link>
           </li>
           <li>
-            <Link href="#" className="hover:text-gray-600 transition-colors uppercase">
+            <Link href="#" className="transition-colors uppercase hover:text-gray-600">
               PROYECTOS
             </Link>
           </li>
           <li>
-            <Link href="#" className="hover:text-gray-600 transition-colors uppercase">
+            <Link href="#" className="transition-colors uppercase hover:text-gray-600">
               QUIENES SOMOS
             </Link>
           </li>
           <li>
-            <Link href="#" className="hover:text-gray-600 transition-colors uppercase">
+            <Link href="#" className="transition-colors uppercase hover:text-gray-600">
               MARCAS
             </Link>
           </li>
@@ -103,7 +111,7 @@ export default function Navbar() {
         {/* Botón mobile - visible en mobile y tablet */}
         <button
           onClick={toggleMenu}
-          className="lg:hidden w-12 h-12 flex items-center justify-center text-4xl font-bold transition-transform duration-300"
+          className="lg:hidden w-12 h-12 flex items-center justify-center text-4xl font-bold text-black transition-transform duration-300"
           style={{ transform: isMenuOpen ? 'rotate(45deg)' : 'rotate(0deg)' }}
           aria-label="Toggle menu"
         >
@@ -114,8 +122,8 @@ export default function Navbar() {
       {/* Overlay del menú mobile */}
       {(isMenuOpen || isClosing) && (
         <div
-          className={`fixed inset-0 z-40 bg-white lg:hidden transition-all duration-500 ease-out ${
-            isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full'
+          className={`fixed inset-0 z-40 bg-white text-black lg:hidden transition-all duration-500 ease-out ${
+            isAnimating ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full"
           }`}
           onClick={closeMenu}
         >
@@ -132,7 +140,7 @@ export default function Navbar() {
             >
               <Link
                 href="#"
-                className="hover:text-gray-600 transition-colors uppercase"
+                className="transition-colors uppercase hover:text-gray-600"
                 onClick={closeMenu}
               >
                 INTRO
@@ -146,7 +154,7 @@ export default function Navbar() {
             >
               <Link
                 href="#"
-                className="hover:text-gray-600 transition-colors uppercase"
+                className="transition-colors uppercase hover:text-gray-600"
                 onClick={closeMenu}
               >
                 QUE HACEMOS
@@ -160,7 +168,7 @@ export default function Navbar() {
             >
               <Link
                 href="#"
-                className="hover:text-gray-600 transition-colors uppercase"
+                className="transition-colors uppercase hover:text-gray-600"
                 onClick={closeMenu}
               >
                 PROYECTOS
@@ -174,7 +182,7 @@ export default function Navbar() {
             >
               <Link
                 href="#"
-                className="hover:text-gray-600 transition-colors uppercase"
+                className="transition-colors uppercase hover:text-gray-600"
                 onClick={closeMenu}
               >
                 QUIENES SOMOS
@@ -188,7 +196,7 @@ export default function Navbar() {
             >
               <Link
                 href="#"
-                className="hover:text-gray-600 transition-colors uppercase"
+                className="transition-colors uppercase hover:text-gray-600"
                 onClick={closeMenu}
               >
                 MARCAS

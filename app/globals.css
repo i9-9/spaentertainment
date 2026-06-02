@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* No escanear public/: contiene el .glb pesado y haría que cada compilación
+   tarde minutos al intentar extraer clases de archivos binarios. */
+@source not "../public";
+
 /* Scroll suave en todo el documento */
 html {
   scroll-behavior: smooth;

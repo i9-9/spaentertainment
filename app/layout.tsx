@@ -5,6 +5,10 @@ import Navbar from "./components/Navbar";
 export const metadata: Metadata = {
   title: "Spa Entertainment",
   description: "Next.js app with Tailwind CSS and TypeScript",
+  icons: {
+    icon: [{ url: "/favicon.ico" }, { url: "/icon.png", type: "image/png" }],
+    apple: "/apple-icon.png",
+  },
 };
 
 export default function RootLayout({
