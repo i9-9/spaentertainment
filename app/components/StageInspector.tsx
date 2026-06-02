@@ -91,17 +91,8 @@ export function StageInspectorPanel({
   onLogoMaterialsChange: (materials: string[]) => void;
   onSelectedChange: (mesh: SelectedMesh | null) => void;
 }) {
-  const [overrides, setOverrides] = useState<Record<string, StageRole>>({});
-  const [logoMaterials, setLogoMaterials] = useState<string[]>([]);
-
-  useEffect(() => {
-    const initialOverrides = loadRoleOverrides();
-    const initialLogoMaterials = loadLogoMaterials();
-    setOverrides(initialOverrides);
-    setLogoMaterials(initialLogoMaterials);
-    onOverridesChange(initialOverrides);
-    onLogoMaterialsChange(initialLogoMaterials);
-  }, [onOverridesChange, onLogoMaterialsChange]);
+  const [overrides, setOverrides] = useState(loadRoleOverrides);
+  const [logoMaterials, setLogoMaterials] = useState(loadLogoMaterials);
 
   const assignRole = (role: StageRole) => {
     if (!selected) return;

@@ -206,25 +206,22 @@ export default function Scene3D() {
   const { progress, active } = useProgress();
   const [showLoader, setShowLoader] = useState(true);
   const [fadeLoader, setFadeLoader] = useState(false);
-  const [roleOverrides, setRoleOverrides] = useState<Record<string, StageRole>>({});
-  const [logoMaterials, setLogoMaterials] = useState<string[]>([]);
+  const [roleOverrides, setRoleOverrides] = useState(loadRoleOverrides);
+  const [logoMaterials, setLogoMaterials] = useState(loadLogoMaterials);
   const [selectedMesh, setSelectedMesh] = useState<SelectedMesh | null>(null);
-
-  useEffect(() => {
-    setRoleOverrides(loadRoleOverrides());
-    setLogoMaterials(loadLogoMaterials());
-  }, []);
 
   const handlePick = useCallback((mesh: SelectedMesh) => {
     setSelectedMesh(mesh);
   }, []);
 
   useEffect(() => {
-    if (progress >= 100 && !active) {
-      setFadeLoader(true);
-      const fadeTimer = setTimeout(() => setShowLoader(false), 700);
-      return () => clearTimeout(fadeTimer);
-    }
+    if (progress < 100 || active) return;
+    const fadeTimer = window.setTimeout(() => setFadeLoader(true), 0);
+    const hideTimer = window.setTimeout(() => setShowLoader(false), 700);
+    return () => {
+      window.clearTimeout(fadeTimer);
+      window.clearTimeout(hideTimer);
+    };
   }, [progress, active]);
 
   return (

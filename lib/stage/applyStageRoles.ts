@@ -137,7 +137,6 @@ export function applyTopCenterLogo(
 
     const box = new THREE.Box3().setFromObject(mesh);
     const center = box.getCenter(new THREE.Vector3());
-    const size = box.getSize(new THREE.Vector3());
 
     const inLogoZone =
       center.y >= minLogoY &&

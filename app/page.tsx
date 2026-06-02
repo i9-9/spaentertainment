@@ -2,6 +2,7 @@
 
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import SceneLoader from "./components/SceneLoader";
 import { SKY_COLOR } from "@/lib/stage/palette";
 
@@ -23,13 +24,13 @@ export default function Home() {
         <span className="text-black/35 text-xs tracking-widest uppercase" style={{ fontFamily: "gotham, sans-serif" }}>
           Arrastrá para explorar
         </span>
-        <a
+        <Link
           href="/?inspect=stage"
           className="text-black/30 text-[10px] tracking-wide uppercase pointer-events-auto hover:text-black/60 transition-colors"
           style={{ fontFamily: "gotham, sans-serif" }}
         >
           Marcar logo / inspector
-        </a>
+        </Link>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.35)" strokeWidth="1.5">
           <path d="M4 12h16M12 4l8 8-8 8" />
         </svg>
